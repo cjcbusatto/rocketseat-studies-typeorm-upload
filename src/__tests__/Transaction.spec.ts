@@ -47,11 +47,10 @@ describe('Transaction', () => {
       title: 'Macbook',
       type: 'outcome',
       value: 6000,
-      category: 'Eletronics',
+      category: 'Electronics',
     });
 
     const response = await request(app).get('/transactions');
-
     expect(response.body.transactions).toHaveLength(3);
     expect(response.body.balance).toMatchObject({
       income: 8000,
@@ -200,6 +199,7 @@ describe('Transaction', () => {
     await request(app).post('/transactions/import').attach('file', importCSV);
 
     const transactions = await transactionsRepository.find();
+
     const categories = await categoriesRepository.find();
 
     expect(categories).toHaveLength(2);
