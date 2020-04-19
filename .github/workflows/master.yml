@@ -1,0 +1,23 @@
+name: Build process
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout the repository'
+        uses: 'actions/checkout@v1'
+      - name: 'Install node'
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
+      - name: 'Install NPM dependencies'
+        run: npm ci
+      - name: Run Tests
+        run: npm test
